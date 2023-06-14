@@ -19,4 +19,7 @@ RUN dotnet publish "DemoDockerWeb.csproj" -c Release -o /app/publish /p:UseAppHo
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+RUN apt-get update && apt-get install -y --no-install-recommends curl
+
 ENTRYPOINT ["dotnet", "DemoDockerWeb.dll"]
